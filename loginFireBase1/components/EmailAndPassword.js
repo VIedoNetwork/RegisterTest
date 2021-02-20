@@ -2,7 +2,7 @@ const { RefreshControlComponent } = require("react-native");
 
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import {View, Text, StyleSheet, TextInput, Touchable, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TextInput, Touchable, TouchableOpacity, Button} from 'react-native';
 
 class EmailAndPassWord extends Component{
     state={
@@ -10,6 +10,16 @@ class EmailAndPassWord extends Component{
     password:'',
     error:'',
     loading:false
+    }
+
+    onButtonPressRegister = () => {
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(this.onLoginSuccess)
+        .catch(err => {
+            this.setState({
+                error: err.message
+            })
+        })
     }
 
     onButtonPress = () => {
@@ -36,6 +46,11 @@ class EmailAndPassWord extends Component{
         <View style={styles.container}>
 
             <TextInput
+             placeholder="User name " 
+             style={styles.input} 
+             />
+
+            <TextInput
              placeholder="Email " 
              style={styles.input} 
              value={this.state.email}
@@ -51,6 +66,11 @@ class EmailAndPassWord extends Component{
             <TouchableOpacity style={styles.buttonContainer} onPress={this.onButtonPress}>
                 <Text style={styles.butonText}> Login </Text>
             </TouchableOpacity>
+
+            <TouchableOpacity style={styles.buttonContainer} onPress={this.onButtonPressRegister}>
+                <Text style={styles.butonText}> Sign Up </Text>
+            </TouchableOpacity>
+
 
 
 
