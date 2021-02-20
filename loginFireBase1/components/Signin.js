@@ -9,7 +9,7 @@ class EmailAndPassWord extends Component{
     email:'',
     password:'',
     error:'',
-    loading:false
+    loading:true
     }
 
     onButtonPress = () => {
